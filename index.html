@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>โครงการ Mind Media | สื่อสร้างสมดุลใจ</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111;
+    --border: #000;
+    --muted: #444;
+    font-family: "Kanit", sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 10px 10px;
+    overflow-x: hidden;
+    animation: fadeInBody 1s ease-in;
+    -webkit-text-size-adjust: 100%;
+    max-width: 100vw;
+  }
+
+  /* Mobile-first responsive breakpoints */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    
+    main {
+      padding: 0 15px;
+    }
+
+    section {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .main-title {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+
+    .gallery-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header {
+      padding: 2rem 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      padding: 8px 12px;
+    }
+
+    .ultra-game-button {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+    }
+  }
+
+  @keyframes fadeInBody {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  background: transparent;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header h1 { margin: 0; font-size: 2.2rem; font-weight: 600; }
+  header p { color: var(--muted); font-size: 1.1rem; }
+
+  main { max-width: 950px; margin: 2rem auto; padding: 0 1rem; }
+
+  section {
+    background: #fff;
+    border: 2px solid #000;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 6px 6px 0 #000;
+    transition: all 0.25s ease-in-out;
+    transform-origin: center;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  section:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 10px 10px 0 #000;
+    border-color: #111;
+    background: #fefefe;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ==== หัวข้อหลักแบบมินิมอล 3D ==== */
+  h2 {
+  background-color: #111;              /* พื้นหลังดำ */
+  color: #e0e0e0;                      /* สีตัวอักษรเทาอ่อน */
+  padding: 10px 18px;                  /* ขนาดกล่องเล็กพอดี */
+  border-radius: 18px;                 /* ความโค้งมน */
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0, 183, 255, 0.25);  /* แสงฟ้าจางรอบกล่อง */
+  transition: all 0.3s ease;
+}
+
+  h2::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    border: 2px dashed rgba(0,0,0,0.2);
+    transform: translate(4px, 4px);
+    z-index: -1;
+  }
+  h2:hover {
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.45);  /* glow ชัดขึ้นเมื่อ hover */
+  transform: translateY(-2px);                   /* ขยับขึ้นนิดๆ */
+}
+
+  section:hover h2 {
+    transform: translateY(-2px) skew(-1deg) scale(1.03);
+    box-shadow: 5px 5px 0 #000;
+  }
+
+  p, ul, td, th { font-size: 1.05rem; }
+  ul { margin-left: 1.4rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  th, td {
+    border: 2px solid #000;
+    padding: 0.7rem;
+    text-align: left;
+    transition: background 0.3s;
+  }
+
+  th {
+    background: #000;
+    color: #fff;
+  }
+
+  tr:hover td {
+    background: #f0f0f0;
+  }
+
+  .tips {
+    border: 2px dashed #000;
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    background: #f8f8f8;
+  }
+
+  footer {
+    text-align: center;
+    border-top: 2px solid #000;
+    padding: 1.5rem;
+    font-size: .9rem;
+    color: var(--muted);
+    animation: fadeUp 1s ease-out both;
+  }
+
+  button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s ease;
+  }
+
+  button:hover {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0 #000;
+  }
+  .main-title {
+  font-family: "Kanit", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #000;
+  letter-spacing: 1px;
+  text-align: center;
+  display: inline-block;
+  padding: 1.2rem 2rem;
+  margin: 0 auto;
+  background: transparent;
+  position: relative;
+  transition: all 0.35s ease;
+}
+
+/* เอฟเฟกต์เรืองแสงเมื่อ hover */
+.main-title span {
+  display: inline-block;
+  transition: all 0.4s ease;
+}
+
+.main-title:hover span {
+  text-shadow: 
+    0 0 15px rgba(0, 200, 255, 0.5),
+    0 0 25px rgba(0, 200, 255, 0.3),
+    0 0 35px rgba(0, 200, 255, 0.1);
+  letter-spacing: 1.5px;
+  transform: translateY(-2px);
+}
+
+.main-title .project-name {
+  transition: all 0.5s ease;
+}
+
+.main-title:hover .project-name {
+  background: linear-gradient(120deg, #000, #0099ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* เอฟเฟกต์ขยับแบบ “หายใจ” */
+@keyframes floatTitle {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow:
+      0 0 12px rgba(0, 180, 255, 0.25),
+      4px 4px 0 #000;
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow:
+      0 0 18px rgba(0, 200, 255, 0.4),
+      7px 7px 0 #000;
+  }
+}
+
+/* เอฟเฟกต์เวลา hover */
+.main-title:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 20px rgba(0, 220, 255, 0.4),
+    6px 6px 0 #000;
+}
+/* ==== FAQ Toggle Section ==== */
+.faq-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.faq-toggle {
+  background: #111;
+  color: #fff;
+  border: 3px solid #00b8ff;
+  border-radius: 25px;
+  padding: 0.9rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.faq-toggle:hover {
+  background: #00b8ff;
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+.faq-content {
+  display: none;
+  margin-top: 1rem;
+  background: #f9f9f9;
+  border: 2px dashed #000;
+  padding: 1.2rem;
+  border-radius: 15px;
+  box-shadow: 5px 5px 0 #000;
+  animation: fadeUp 0.4s ease-out both;
+}
+
+.glow-button {
+  background: linear-gradient(135deg, #000 0%, #111 100%);
+  color: #e0faff;
+  border: 3px solid #00b8ff;
+  border-radius: 30px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 0.8rem;
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.35),
+    4px 4px 0 #000;
+  transition: all 0.3s ease-in-out;
+  animation: pulseGlow 3s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.glow-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.6),
+    6px 6px 0 #000;
+  background: linear-gradient(135deg, #001f33 0%, #000 100%);
+  color: #fff;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(0, 200, 255, 0.35),
+      4px 4px 0 #000;
+  }
+  50% {
+    box-shadow:
+      0 0 28px rgba(0, 240, 255, 0.55),
+      6px 6px 0 #000;
+  }
+}
+/* ==== ปุ่มเล่นเกมขาวดำ เอฟเฟกต์พรีเมียม ==== */
+  .game-button-container {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 100%;
+}.ultra-game-button {
+  position: relative;
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  padding: 1.3rem 3.5rem;
+  border: none;
+  border-radius: 50px;
+  color: #000;
+  background: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.35s ease-in-out;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 0 0 3px #000,
+    0 6px 0 #000,
+    0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: floatElite 4s ease-in-out infinite;
+}
+
+/* เอฟเฟกต์แสงเคลื่อนไหวในพื้นหลัง */
+.ultra-game-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.4), rgba(0,0,0,0.05), rgba(255,255,255,0.2));
+  z-index: 0;
+  transition: opacity 0.3s ease-in-out;
+  background-size: 200% 200%;
+  animation: shineWave 5s linear infinite;
+  border-radius: 50px;
+}
+
+.ultra-game-button span {
+  position: relative;
+  z-index: 2;
+}
+
+/* เอฟเฟกต์ hover — กลับสี, แสงเรืองขอบ, เด้งนุ่ม */
+.ultra-game-button:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-8px) scale(1.05);
+  box-shadow:
+    0 0 0 3px #000,
+    0 10px 0 #000,
+    0 0 40px rgba(255,255,255,0.5),
+    0 0 80px rgba(255,255,255,0.3);
+}
+
+/* เอฟเฟกต์คลิก */
+.ultra-game-button:active {
+  transform: scale(0.97);
+  box-shadow:
+    0 0 0 3px #000,
+    0 4px 0 #000;
+}
+
+/* เอฟเฟกต์ลอยขึ้นเบาๆ */
+@keyframes floatElite {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow:
+      0 0 0 3px #000,
+      0 6px 0 #000,
+      0 8px 25px rgba(0,0,0,0.25);
+  }
+  50% {
+    transform: translateY(-6px);
+    box-shadow:
+      0 0 0 3px #000,
+      0 10px 0 #000,
+      0 12px 35px rgba(0,0,0,0.3);
+  }
+}
+
+/* เอฟเฟกต์พื้นหลังเคลื่อนไหว */
+@keyframes shineWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* ==== เอฟเฟกต์พื้นหลังแบบพรีเมียมเคลื่อนไหว ==== */
+body {
+  position: relative;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 30% 30%, rgba(0,255,255,0.08), transparent 70%),
+              radial-gradient(circle at 70% 70%, rgba(0,200,255,0.1), transparent 60%),
+              #fafafa;
+  background-size: 200% 200%;
+  animation: bgShift 18s ease-in-out infinite alternate;
+}
+
+/* แอนิเมชันเคลื่อนไหวของ gradient */
+@keyframes bgShift {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 50% 100%, 50% 0%;
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    background-position: 100% 50%, 0% 50%;
+    filter: hue-rotate(40deg);
+  }
+}
+
+/* ==== จุดเรืองแสงลอยเบาๆ (Glowing Orbs) ==== */
+.glow-dot {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+  animation: floatDot 10s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+/* การเคลื่อนไหวขึ้น-ลงของจุดเรืองแสง */
+@keyframes floatDot {
+  0% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-25px) scale(1.1); opacity: 0.8; }
+  100% { transform: translateY(0) scale(1); opacity: 0.4; }
+}
+
+/* จุดแสงแต่ละจุด: ขนาด / สี / ตำแหน่ง / ความหน่วงเวลา */
+.glow-dot:nth-child(1) {
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, rgba(0,255,255,0.4), transparent 70%);
+  top: 15%; left: 10%;
+  animation-delay: 0s;
+}
+.glow-dot:nth-child(2) {
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(0,180,255,0.35), transparent 70%);
+  top: 50%; left: 80%;
+  animation-delay: 2s;
+}
+.glow-dot:nth-child(3) {
+  width: 60px; height: 60px;
+  background: radial-gradient(circle, rgba(0,255,180,0.3), transparent 70%);
+  top: 70%; left: 25%;
+  animation-delay: 4s;
+}
+.glow-dot:nth-child(4) {
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(0,255,255,0.25), transparent 70%);
+  top: 30%; left: 55%;
+  animation-delay: 1s;
+}
+.glow-dot:nth-child(5) {
+  width: 70px; height: 70px;
+  background: radial-gradient(circle, rgba(0,255,200,0.3), transparent 70%);
+  top: 85%; left: 45%;
+  animation-delay: 3s;
+}
+
+</style>
+</head>
+<body>
+<!-- 🔹 จุดเรืองแสงพื้นหลัง -->
+<div class="glow-dot"></div>
+<div class="glow-dot"></div>
+<div class="glow-dot"></div>
+<div class="glow-dot"></div>
+<div class="glow-dot"></div>
+
+<header>
+  <h1 class="main-title">
+    <span class="project-name" style="font-weight: 600">Mind Media</span><br>
+    <span style="font-size: 1.2rem; opacity: 0.85">สื่อสร้างสมดุลใจ</span><br>
+    <span style="font-size: 0.9rem; opacity: 0.7; letter-spacing: 2px; margin-top: 0.8rem; display: inline-block">
+      ทีม DetoxGen × Siriraj Health Education Hackathon 2026
+    </span>
+  </h1>
+</header>
+<!-- 🔹 ปุ่มเล่นเกมโทนขาวดำ (ดีไซน์มินิมอลทันสมัย) -->
+
+<main>
+  
+  <div class="game-button-container" style="text-align: center; padding: 2rem 0 3rem 0;">
+    <button class="ultra-game-button" onclick="location.href='game.html'">
+      <span>🎮 เริ่มเล่นเกมสร้างสมดุลใจ</span>
+    </button>
+  </div>
+
+  <!-- เพิ่ม Modal Styles -->
+  <style>
+    .info-section {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .info-section h2 {
+      display: inline-block;
+      font-size: 1.3rem;
+      color: #000;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .info-section:hover h2 {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 200, 255, 0.2);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      will-change: opacity;
+    }
+
+    .modal-content {
+      background: white;
+      width: 95%;
+      max-width: 900px;
+      height: 90vh;
+      border-radius: 20px;
+      padding: 1rem;
+      position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      will-change: transform, opacity;
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        padding: 1rem;
+      }
+
+      .modal-close {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 1rem;
+        z-index: 1001;
+      }
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      display: flex;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      color: #000;
+      transform: rotate(90deg);
+    }
+
+    .modal-content h3 {
+      color: #000;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+  </style>
+
+  <style>
+    .info-section {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .info-section h2 {
+      display: inline-block;
+      font-size: 1.3rem;
+      color: #000;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .info-section:hover h2 {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 200, 255, 0.2);
+    }
+
+    .modal-section {
+      margin-bottom: 2rem;
+    }
+
+    .modal-section h4 {
+      color: #000;
+      font-size: 1.2rem;
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .modal-section p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .quote {
+      padding: 1rem;
+      background: #f8f8f8;
+      border-left: 4px solid #000;
+      margin: 1rem 0;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .info-table th, .info-table td {
+      border: 1px solid #ddd;
+      padding: 0.8rem;
+    }
+
+    .info-table th {
+      background: #f5f5f5;
+    }
+  </style>
+
+  <!-- เพิ่ม Section และ Modal -->
+  <div class="info-section">
+    <h2>📊 ข้อมูลเกี่ยวกับภาวะความเครียดและโรคซึมเศร้าในสังคมยุคปัจจุบัน</h2>
+  </div>
+
+  <!-- Modal Structure -->
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close">×</button>
+      <h3>ข้อมูลเกี่ยวกับภาวะความเครียดและโรคซึมเศร้า</h3>
+      <div id="modal-data">
+
+        <div class="modal-section">
+          <p><strong>ความเครียด (Stress)</strong> โดยนิยามทางจิตวิทยาและสรีรวิทยา หมายถึงภาวะที่ร่างกายและจิตใจเสียสมดุลยภาพ ซึ่งเกิดจากปฏิกิริยาตอบสนองต่อสิ่งที่มาจากทั้งภายในและภายนอกร่างกายที่มาคุกคาม หรือขัดขวางการทำงาน การเจริญเติบโต หรือการพัฒนาการตามความต้องการปกติ</p>
+          
+          <div class="quote">
+            "บุคคลที่ไม่มีความเครียดคือบุคคลที่ตายแล้ว" - ฮันส์ เซลเย (Hans Selye)
+          </div>
+
+          <h4>สถิติและความชุกของโรคซึมเศร้าในประเทศไทย</h4>
+          <p>โรคซึมเศร้าเป็นโรคจิตเวชที่พบได้บ่อย ซึ่งได้รับอิทธิพลจากปัจจัยทางสังคม เศรษฐกิจ และสภาพแวดล้อมที่เปลี่ยนแปลงไปอย่างรวดเร็ว รวมถึงปัจจัยทางพันธุกรรมและการใช้สารเสพติด กลุ่มวัยรุ่นถือเป็นกลุ่มที่มีความเสี่ยงสูงต่อภาวะซึมเศร้าและความเสี่ยงต่อการฆ่าตัวตาย</p>
+
+          <h4>ลักษณะอาการของโรคซึมเศร้า</h4>
+          <table class="info-table">
+            <tr>
+              <th>กลุ่มอาการ</th>
+              <th>ลักษณะอาการที่ต้องสังเกต</th>
+            </tr>
+            <tr>
+              <td>ด้านอารมณ์และจิตใจ</td>
+              <td>เศร้า, ไร้ชีวิตชีวา/เบื่อหน่าย, สิ้นหวัง, ไร้ค่า, คิดฆ่าตัวตาย, ไม่มีสมาธิ</td>
+            </tr>
+            <tr>
+              <td>ด้านร่างกาย</td>
+              <td>การนอน/การกินผิดปกติ, น้ำหนักเปลี่ยน, พลังงานลดลง, เคลื่อนไหวช้าลง</td>
+            </tr>
+            <tr>
+              <td>ด้านสังคม</td>
+              <td>เก็บตัว, หลีกหนีสังคม, ขาดแรงจูงใจในการปฏิบัติกิจวัตรประจำวัน</td>
+            </tr>
+          </table>
+
+          <h4>การดูแลและรักษา</h4>
+          <p><strong>1. การจัดการความเครียดด้วยตนเอง:</strong></p>
+          <ul>
+            <li>การออกกำลังกายอย่างน้อย 3 ครั้งต่อสัปดาห์ ครั้งละ 30 นาที</li>
+            <li>การฝึกสมาธิ การหายใจ และการผ่อนคลายกล้ามเนื้อ</li>
+            <li>การพักผ่อนให้เพียงพอและรับประทานอาหารที่มีประโยชน์</li>
+          </ul>
+
+          <p><strong>2. ช่องทางขอความช่วยเหลือ:</strong></p>
+          <div class="quote">
+            <strong>สายด่วนสุขภาพจิต 1323</strong><br>
+            - ให้บริการฟรี 24 ชั่วโมง<br>
+            - มีนักจิตวิทยาคอยให้คำปรึกษา<br>
+            - สามารถนัดหมายออนไลน์ผ่านระบบ 1323 All time for all Thai
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- เพิ่ม JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // เตรียมเนื้อหาสำหรับ Modal
+      const modalContent = `
+        <div class="modal-section">
+          <p><strong>ความเครียด (Stress)</strong> โดยนิยามทางจิตวิทยาและสรีรวิทยา หมายถึงภาวะที่ร่างกายและจิตใจเสียสมดุลยภาพ ซึ่งเกิดจากปฏิกิริยาตอบสนองต่อสิ่งที่มาจากทั้งภายในและภายนอกร่างกายที่มาคุกคาม หรือขัดขวางการทำงาน การเจริญเติบโต หรือการพัฒนาการตามความต้องการปกติ</p>
+          
+          <div class="quote">
+            "บุคคลที่ไม่มีความเครียดคือบุคคลที่ตายแล้ว" - ฮันส์ เซลเย (Hans Selye)
+          </div>
+
+          <h4>สถิติและความชุกของโรคซึมเศร้าในประเทศไทย</h4>
+          <p>โรคซึมเศร้าเป็นโรคจิตเวชที่พบได้บ่อย ซึ่งได้รับอิทธิพลจากปัจจัยทางสังคม เศรษฐกิจ และสภาพแวดล้อมที่เปลี่ยนแปลงไปอย่างรวดเร็ว รวมถึงปัจจัยทางพันธุกรรมและการใช้สารเสพติด กลุ่มวัยรุ่นถือเป็นกลุ่มที่มีความเสี่ยงสูงต่อภาวะซึมเศร้าและความเสี่ยงต่อการฆ่าตัวตาย</p>
+
+          <h4>ลักษณะอาการของโรคซึมเศร้า</h4>
+          <table class="info-table">
+            <tr>
+              <th>กลุ่มอาการ</th>
+              <th>ลักษณะอาการที่ต้องสังเกต</th>
+            </tr>
+            <tr>
+              <td>ด้านอารมณ์และจิตใจ</td>
+              <td>เศร้า, ไร้ชีวิตชีวา/เบื่อหน่าย, สิ้นหวัง, ไร้ค่า, คิดฆ่าตัวตาย, ไม่มีสมาธิ</td>
+            </tr>
+            <tr>
+              <td>ด้านร่างกาย</td>
+              <td>การนอน/การกินผิดปกติ, น้ำหนักเปลี่ยน, พลังงานลดลง, เคลื่อนไหวช้าลง</td>
+            </tr>
+            <tr>
+              <td>ด้านสังคม</td>
+              <td>เก็บตัว, หลีกหนีสังคม, ขาดแรงจูงใจในการปฏิบัติกิจวัตรประจำวัน</td>
+            </tr>
+          </table>
+
+          <h4>การดูแลและรักษา</h4>
+          <p><strong>1. การจัดการความเครียดด้วยตนเอง:</strong></p>
+          <ul>
+            <li>การออกกำลังกายอย่างน้อย 3 ครั้งต่อสัปดาห์ ครั้งละ 30 นาที</li>
+            <li>การฝึกสมาธิ การหายใจ และการผ่อนคลายกล้ามเนื้อ</li>
+            <li>การพักผ่อนให้เพียงพอและรับประทานอาหารที่มีประโยชน์</li>
+          </ul>
+
+          <p><strong>2. ช่องทางขอความช่วยเหลือ:</strong></p>
+          <div class="quote">
+            <strong>สายด่วนสุขภาพจิต 1323</strong><br>
+            - ให้บริการฟรี 24 ชั่วโมง<br>
+            - มีนักจิตวิทยาคอยให้คำปรึกษา<br>
+            - สามารถนัดหมายออนไลน์ผ่านระบบ 1323 All time for all Thai
+          </div>
+        </div>
+      `;
+
+      // เลือก elements
+      const modal = document.querySelector('.modal-overlay');
+      const modalData = document.querySelector('#modal-data');
+      const infoSection = document.querySelector('.info-section');
+      const closeButton = document.querySelector('.modal-close');
+
+      // ใส่เนื้อหาเข้าไปใน modal
+      modalData.innerHTML = modalContent;
+
+      function showModal() {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+          modal.classList.add('active');
+          document.querySelector('.modal-content').style.transform = 'translateY(0)';
+          document.querySelector('.modal-content').style.opacity = '1';
+        });
+      }
+
+      function hideModal() {
+        document.querySelector('.modal-content').style.transform = 'translateY(20px)';
+        document.querySelector('.modal-content').style.opacity = '0';
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }, 300);
+      }
+
+      // Event Listeners
+      infoSection.addEventListener('click', showModal);
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+      });
+
+      closeButton.addEventListener('click', hideModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          hideModal();
+        }
+      });
+    });
+  </script>
+
+  <section>
+    <h2>1. ความเป็นมาและความสำคัญของปัญหา</h2>
+    <p>ปัญหาสุขภาพจิตในเยาวชนไทย โดยเฉพาะนักเรียนมัธยม มีแนวโน้มเพิ่มขึ้นอย่างต่อเนื่องจากแรงกดดันทางการเรียน การแข่งขัน และผลกระทบจากสังคมออนไลน์ ซึ่งเต็มไปด้วยการเปรียบเทียบและคาดหวังที่เกินจริง (กรมสุขภาพจิต, 2565) ทำให้นักเรียนจำนวนมากเกิดความเครียด วิตกกังวล และขาดแรงจูงใจในการเรียน</p>
+    <p>องค์การอนามัยโลก (WHO, 2022) รายงานว่า เยาวชนทั่วโลกร้อยละ 13 มีปัญหาทางสุขภาพจิต และ UNICEF (2023) ระบุว่า เด็กยุคดิจิทัลใช้สื่อออนไลน์เฉลี่ยมากกว่า 6 ชั่วโมงต่อวัน ซึ่งอาจเพิ่มความเครียดจากการเปรียบเทียบตนเองและการรับข้อมูลล้นเกิน</p>
+    <p>ดังนั้นจึงเกิดแนวคิดในการสร้าง <b>"สื่อดิจิทัลสร้างสมดุลใจ"</b> ที่มีความรู้ถูกต้อง เข้าถึงง่าย และเหมาะกับช่วงวัย เพื่อส่งเสริมการตระหนักรู้ในตนเองและทักษะการจัดการอารมณ์ของนักเรียน</p>
+  </section>
+
+  <section>
+    <h2>2. สมมติฐานของโครงการ</h2>
+    <p>นักเรียนมัธยมศึกษาที่ใช้งานเว็บไซต์ Mind Media อย่างต่อเนื่อง จะมีระดับความเครียดและความวิตกกังวลลดลง ส่งผลให้ความเสี่ยงต่อภาวะซึมเศร้าลดลงเมื่อเทียบกับก่อนใช้งาน</p>
+  </section>
+
+  <section>
+    <h2>3. วัตถุประสงค์ของโครงการ</h2>
+    <table>
+      <tr><th>ลำดับ</th><th>วัตถุประสงค์</th></tr>
+      <tr><td>1</td><td>ส่งเสริมทักษะการจัดการความเครียดและอารมณ์ในเยาวชน</td></tr>
+      <tr><td>2</td><td>ให้เยาวชนเข้าถึงข้อมูลสุขภาพจิตที่ถูกต้องและเชื่อถือได้</td></tr>
+      <tr><td>3</td><td>สร้างประสบการณ์เรียนรู้เชิงดิจิทัลที่มีส่วนร่วมและสนุกสนาน</td></tr>
+      <tr><td>4</td><td>ป้องกันภาวะซึมเศร้าและส่งเสริมคุณภาพชีวิตในระยะยาว</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>4. แรงบันดาลใจในการออกแบบ</h2>
+    <p>แรงบันดาลใจมาจากปัญหาความเครียดในนักเรียนที่เพิ่มสูงขึ้นจากแรงกดดันด้านการเรียนและสื่อออนไลน์ โครงการจึงออกแบบเว็บไซต์ที่ผสมผสานองค์ความรู้ด้านจิตวิทยากับเทคโนโลยีดิจิทัล เพื่อให้เยาวชนได้ฝึกตนเองในการรู้เท่าทันอารมณ์และใช้สื่ออย่างสร้างสรรค์</p>
+  </section>
+
+  <!-- เพิ่มส่วน Gallery -->
+  <section>
+    <h2>ภาพกิจกรรมและการพัฒนาโครงการ</h2>
+    <style>
+      .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        border: 2px solid #000;
+        box-shadow: 5px 5px 0 #000;
+        transition: all 0.3s ease;
+        aspect-ratio: 16/9;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 8px 8px 0 #000;
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+      }
+
+      .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        font-family: 'Kanit', sans-serif;
+        font-size: 0.95rem;
+      }
+
+      .gallery-item:hover .gallery-caption {
+        transform: translateY(0);
+      }
+
+      .gallery-item:hover .gallery-img {
+        transform: scale(1.1);
+      }
+
+      .upload-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f8;
+        color: #666;
+        font-family: 'Kanit', sans-serif;
+        padding: 1rem;
+        text-align: center;
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+      }
+    </style>
+
+    <div class="gallery-container">
+      <!-- ภาพที่ 1 -->
+      <div class="gallery-item">
+        <img src="team.jpg" alt="ภาพการประชุมทีม" class="gallery-img">
+        <div class="gallery-caption">การประชุมวางแผนและระดมความคิดของทีม DetoxGen</div>
+      </div>
+
+      <!-- ภาพที่ 2 -->
+
+
+      <!-- ภาพที่ 3 -->
+      <div class="gallery-item">
+        <img src="ff.jpg" alt="ภาพการพัฒนาระบบ" class="gallery-img">
+        <div class="gallery-caption">ขั้นตอนการพัฒนาและทดสอบระบบ Mind Media</div>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: #666; margin-top: 1rem; font-size: 0.9rem;">
+      * คลิกที่ภาพเพื่อดูคำอธิบายเพิ่มเติม
+    </p>
+  </section>
+
+  <section>
+    <h2>5. นวัตกรรมและเครื่องมือที่ใช้</h2>
+    <table>
+      <tr><th>ลำดับ</th><th>เครื่องมือ / ทรัพยากร</th><th>การใช้งาน</th></tr>
+      <tr><td>1</td><td>Google Form</td><td>ใช้เก็บข้อมูลออนไลน์จากกลุ่มเป้าหมาย</td></tr>
+      <tr><td>2</td><td>Computer</td><td>ใช้ในการเข้าถึงและประมวลผลข้อมูลโครงการ</td></tr>
+      <tr><td>3</td><td>บุคลากรในทีม & ครูแนะแนว</td><td>ให้คำปรึกษาและสนับสนุนด้านเนื้อหา</td></tr>
+      <tr><td>4</td><td>ชมรม YC โรงเรียน</td><td>เป็นกลุ่มนำร่องในการทดลองใช้งานเว็บไซต์</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>6. ผลกระทบที่คาดว่าจะเกิดขึ้น</h2>
+    <ul>
+      <li>นักเรียนมีความเข้าใจอารมณ์และจัดการความเครียดได้ดีขึ้น</li>
+      <li>ลดความเสี่ยงต่อภาวะซึมเศร้าในกลุ่มเยาวชน</li>
+      <li>เพิ่มสมาธิ ความพร้อมในการเรียน และทักษะการแก้ปัญหา</li>
+      <li>ส่งเสริมการใช้สื่อดิจิทัลอย่างมีวิจารณญาณ</li>
+      <li>สร้างวัฒนธรรมการดูแลสุขภาพจิตในโรงเรียนและชุมชน</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7. ตารางสรุปภาพรวมโครงการ</h2>
+    <table>
+      <tr><th>หัวข้อ</th><th>รายละเอียด</th></tr>
+      <tr><td>ชื่อโครงการ</td><td>Mind Media – สื่อสร้างสมดุลใจ</td></tr>
+      <tr><td>ทีมผู้จัดทำ</td><td>DetoxGen</td></tr>
+      <tr><td>สถานที่ดำเนินงาน</td><td>Siriraj Health Education Hackathon 2026</td></tr>
+      <tr><td>กลุ่มเป้าหมาย</td><td>นักเรียนมัธยมศึกษา</td></tr>
+      <tr><td>ระยะเวลาโครงการ</td><td>ปีงบประมาณ 2568 (ทดลองใช้ต่อเนื่อง 3 เดือน)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>8. เอกสารอ้างอิง</h2>
+    <ul>
+      <li>กรมสุขภาพจิต. (2565). รายงานสถานการณ์สุขภาพจิตเด็กและวัยรุ่นไทย.</li>
+      <li>กระทรวงสาธารณสุข. (2566). ผลกระทบของความเครียดต่อพฤติกรรมและการเรียนของเยาวชน.</li>
+      <li>UNICEF. (2023). Children and digital media: Understanding the impact on mental health.</li>
+      <li>WHO. (2022). Adolescent mental health: Mapping actions of NGOs and governments.</li>
+      <li>WHO. (2020). Infodemic management: A key component of the COVID-19 global response.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>9. ช่องทางติดต่อและขอความช่วยเหลือ</h2>
+    <p>หากพบภาวะเครียดหรือซึมเศร้า สามารถขอคำปรึกษาได้ที่</p>
+    <ul>
+      <li>📞 สายด่วนสุขภาพจิต <b>1323</b> (บริการฟรี 24 ชั่วโมง)</li>
+      <li>🌐 <a href="https://www.mentalhealth.go.th" target="_blank">กรมสุขภาพจิต</a></li>
+    </ul>
+    <button onclick="copyHotline()">คัดลอกหมายเลข 1323</button>
+  </section>
+    <section>
+    <h2>10. ประวัติผู้จัดทำ</h2>
+
+    <style>
+      .team-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        justify-items: center;
+        margin-top: 2rem;
+        animation: fadeUp 0.8s ease-out both;
+      }
+
+      .member-card {
+        background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
+        border: 2px solid #000;
+        border-radius: 18px;
+        box-shadow: 6px 6px 0 #000, 0 0 18px rgba(0, 200, 255, 0.2);
+        width: 100%;
+        max-width: 340px;
+        padding: 1.2rem;
+        text-align: center;
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .member-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(0,255,255,0.2), transparent, rgba(0,255,255,0.15));
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      .member-card:hover::before {
+        opacity: 1;
+      }
+
+      .member-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 10px 10px 0 #000, 0 0 28px rgba(0,255,255,0.4);
+      }
+
+      .member-card img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #000;
+        box-shadow: 0 0 18px rgba(0,200,255,0.25);
+        margin-bottom: 0.8rem;
+        transition: transform 0.3s;
+      }
+
+      .member-card:hover img {
+        transform: scale(1.07);
+      }
+
+      .member-card h3 {
+        font-size: 1.15rem;
+        margin: 0.4rem 0;
+        color: #111;
+        font-weight: 600;
+      }
+
+      .member-card p {
+        margin: 0.2rem 0;
+        color: #333;
+        font-size: 1rem;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+
+    <div class="team-container">
+
+      <div class="member-card">
+        <img src="1.jpg" alt="ผู้จัดทำ 1">
+        <h3>นายชณวัษก์ คํานึงคง</h3>
+        <p>โรงเรียน: สุรวิทยาคาร</p>
+        <p>ชั้น: ม.5</p>
+      
+        <p>อายุ: 17 ปี</p>
+      </div>
+
+      <div class="member-card">
+        <img src="2.jpg" alt="ผู้จัดทำ 2">
+        <h3>นายวรกิจ ระย้ายาว</h3>
+        <p>โรงเรียน: สุรวิทยาคาร</p>
+        <p>ชั้น: ม.5</p>
+        
+        <p>อายุ: 17 ปี</p>
+      </div> 
+
+      <div class="member-card">
+        <img src="3.jpg" alt="ผู้จัดทำ 3">
+        <h3>นายยศกร ฉายแก้ว</h3>
+        <p>โรงเรียน: สุรวิทยาคาร</p>
+        <p>ชั้น: ม.5</p>
+        
+        <p>อายุ: 17 ปี</p>
+      </div>
+
+      <div class="member-card">
+        <img src="4.jpg" alt="ผู้จัดทำ 4">
+        <h3>นายกวินภพ วิชุมา</h3>
+        <p>โรงเรียน: สุรวิทยาคาร</p>
+        <p>ชั้น: ม.5</p>
+       
+        <p>อายุ: 17 ปี</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 🔹 ปุ่มใหม่สำหรับไปยังเว็บไซต์อื่น -->
+   
+
+</main>
+<footer>
+  © 2025 โครงการ Mind Media – ทีม DetoxGen | เพื่อเยาวชนไทยมีสุขภาพจิตที่สมดุล 🖋️
+</footer>
+
+</body>
+</html>

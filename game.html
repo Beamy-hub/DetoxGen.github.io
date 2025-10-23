@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Quest - เกมฝึกจัดการความเครียด</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .bounce { animation: bounce 2s infinite; }
+        .pulse { animation: pulse 2s infinite; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-full font-sans">
+    <div class="min-h-full p-4">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2 bounce">🧠 Mind Quest</h1>
+            <p class="text-xl text-purple-100">เกมฝึกทักษะการจัดการความเครียดและอารมณ์</p>
+        </header>
+
+        <!-- Character Stats -->
+        <div class="max-w-4xl mx-auto mb-6">
+            <div class="bg-white rounded-lg p-4 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="text-4xl mr-3" id="characterAvatar">😊</div>
+                        <div>
+                            <h3 class="font-bold text-lg">นักเรียนคนนี้</h3>
+                            <p class="text-sm text-gray-600">ระดับ: <span id="playerLevel">1</span></p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-600">คะแนนรวม: <span id="totalScore" class="font-bold text-purple-600">0</span></p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">พลังใจ</label>
+                        <div class="bg-gray-200 rounded-full h-4">
+                            <div id="mentalEnergyBar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 80%"></div>
+                        </div>
+                        <span id="mentalEnergyText" class="text-sm text-gray-600">80/100</span>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ทักษะการรับมือ</label>
+                        <div class="bg-gray-200 rounded-full h-4">
+                            <div id="copingSkillBar" class="bg-blue-500 h-4 rounded-full transition-all duration-500" style="width: 60%"></div>
+                        </div>
+                        <span id="copingSkillText" class="text-sm text-gray-600">60/100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Start Screen -->
+            <div id="startScreen" class="bg-white rounded-lg p-8 shadow-lg text-center">
+                <div class="text-6xl mb-4">🎮</div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">ยินดีต้อนรับสู่ Mind Quest!</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    เกมนี้จะช่วยให้คุณฝึกทักษะการจัดการความเครียดและอารมณ์ผ่านสถานการณ์จริงที่อาจเกิดขึ้นในชีวิตประจำวัน
+                    <br><br>
+                    คุณจะได้เรียนรู้วิธีการรับมือกับความเครียด การคิดเชิงบวก และการตัดสินใจอย่างมีสติ
+                </p>
+                <button onclick="startGame()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg pulse">
+                    เริ่มเล่นเกม
+                </button>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="gameScreen" class="hidden">
+                <div class="bg-white rounded-lg p-6 shadow-lg mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3" id="scenarioIcon">📚</div>
+                        <div>
+                            <h3 class="text-xl font-bold" id="scenarioTitle">สถานการณ์</h3>
+                            <p class="text-sm text-gray-600">สถานการณ์ที่ <span id="scenarioNumber">1</span> จาก 5</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed mb-6" id="scenarioDescription">
+                        คำอธิบายสถานการณ์จะแสดงที่นี่
+                    </p>
+                    
+                    <div id="choicesContainer" class="space-y-3">
+                        <!-- Choices will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div id="feedbackSection" class="hidden bg-blue-50 rounded-lg p-6 shadow-lg mb-6">
+                    <h4 class="font-bold text-lg mb-3 text-blue-800">💡 คำแนะนำจากนักจิตวิทยา</h4>
+                    <p id="feedbackText" class="text-blue-700 leading-relaxed mb-4"></p>
+                    <div id="statsChange" class="text-sm text-gray-600 mb-4"></div>
+                    <button onclick="nextScenario()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">
+                        ต่อไป
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="resultsScreen" class="hidden bg-white rounded-lg p-8 shadow-lg text-center">
+                <div class="text-6xl mb-4">🏆</div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">เยี่ยมมาก! คุณผ่านเกมแล้ว</h2>
+                <div id="finalResults" class="mb-6">
+                    <!-- Final results will be shown here -->
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <button onclick="restartGame()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg">
+                        เล่นใหม่
+                    </button>
+                    <button onclick="showTips()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">
+                        เทคนิคเพิ่มเติม
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tips Screen -->
+            <div id="tipsScreen" class="hidden bg-white rounded-lg p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">🌟 เทคนิคการจัดการความเครียด</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-green-800 mb-2">🧘‍♀️ เทคนิคการหายใจ</h3>
+                        <p class="text-green-700 text-sm">หายใจเข้า 4 วินาที กลั้น 4 วินาที หายใจออก 4 วินาที</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-800 mb-2">💭 การคิดเชิงบวก</h3>
+                        <p class="text-blue-700 text-sm">มองหาสิ่งดีๆ ในสถานการณ์ยากลำบาก</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-purple-800 mb-2">🤝 ขอความช่วยเหลือ</h3>
+                        <p class="text-purple-700 text-sm">พูดคุยกับคนที่เราไว้ใจเมื่อรู้สึกเครียด</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-orange-800 mb-2">⏰ การจัดการเวลา</h3>
+                        <p class="text-orange-700 text-sm">แบ่งงานใหญ่เป็นงานเล็กๆ ทำทีละขั้นตอน</p>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <button onclick="backToResults()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg">
+                        กลับ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let gameState = {
+            currentScenario: 0,
+            mentalEnergy: 80,
+            copingSkill: 60,
+            totalScore: 0,
+            level: 1
+        };
+
+        // Scenarios Data
+        const scenarios = [
+            {
+                icon: "📚",
+                title: "ข้อสอบไม่ผ่าน",
+                description: "คุณเพิ่งได้รับผลสอบกลางภาคแล้วพบว่าได้คะแนนต่ำกว่าที่คาดหวัง เพื่อนๆ หลายคนได้คะแนนดีกว่า คุณรู้สึกผิดหวังและกังวลเรื่องผลการเรียน",
+                choices: [
+                    {
+                        text: "โทษตัวเองและคิดว่าตัวเองโง่",
+                        mentalEnergy: -15,
+                        copingSkill: -5,
+                        feedback: "การโทษตัวเองจะทำให้ความเครียดเพิ่มขึ้น ลองมองว่าความผิดพลาดเป็นโอกาสในการเรียนรู้ แทนที่จะตำหนิตัวเอง ควรวิเคราะห์สาเหตุและหาวิธีปรับปรุง"
+                    },
+                    {
+                        text: "วิเคราะห์ข้อผิดพลาดและวางแผนอ่านหนังสือใหม่",
+                        mentalEnergy: 5,
+                        copingSkill: 15,
+                        feedback: "เยี่ยม! การวิเคราะห์ปัญหาและวางแผนแก้ไขเป็นทักษะการรับมือที่ดีมาก การเรียนรู้จากความผิดพลาดจะช่วยให้คุณพัฒนาได้อย่างต่อเนื่อง"
+                    },
+                    {
+                        text: "ไปปรึกษาครูและขอคำแนะนำ",
+                        mentalEnergy: 10,
+                        copingSkill: 10,
+                        feedback: "การขอความช่วยเหลือเป็นสิ่งที่ฉลาดมาก! ครูสามารถให้คำแนะนำที่เป็นประโยชน์และช่วยให้คุณเข้าใจเนื้อหาได้ดีขึ้น"
+                    }
+                ]
+            },
+            {
+                icon: "👥",
+                title: "ถูกเพื่อนวิจารณ์",
+                description: "คุณนำเสนองานโครงการหน้าชั้นเรียน แต่เพื่อนบางคนแสดงความคิดเห็นเชิงลบและหัวเราะเยาะ คุณรู้สึกอับอายและไม่มั่นใจในตัวเอง",
+                choices: [
+                    {
+                        text: "โกรธและโต้เถียงกับเพื่อน",
+                        mentalEnergy: -10,
+                        copingSkill: -10,
+                        feedback: "การโกรธและโต้เถียงอาจทำให้สถานการณ์แย่ลง ลองหายใจลึกๆ และใช้เวลาสักครู่เพื่อคิดก่อนตอบสนอง การควบคุมอารมณ์จะช่วยให้คุณจัดการสถานการณ์ได้ดีกว่า"
+                    },
+                    {
+                        text: "รับฟังความคิดเห็นและถามคำถามเพื่อปรับปรุง",
+                        mentalEnergy: 5,
+                        copingSkill: 20,
+                        feedback: "ยอดเยี่ยม! การรับฟังและเรียนรู้จากความคิดเห็นแสดงให้เห็นถึงความเป็นผู้ใหญ่ ไม่ใช่ทุกความคิดเห็นที่จะเป็นประโยชน์ แต่การเปิดใจรับฟังจะช่วยให้คุณพัฒนาได้"
+                    },
+                    {
+                        text: "เก็บความรู้สึกไว้ในใจและหลีกเลี่ยงเพื่อน",
+                        mentalEnergy: -5,
+                        copingSkill: 0,
+                        feedback: "การเก็บความรู้สึกไว้ในใจอาจทำให้ความเครียดสะสม ลองพูดคุยกับคนที่เราไว้ใจหรือหาวิธีระบายความรู้สึกในทางที่สร้างสรรค์"
+                    }
+                ]
+            },
+            {
+                icon: "🏠",
+                title: "ปัญหาครอบครัว",
+                description: "พ่อแม่ทะเลาะกันบ่อยขึ้น และคุณรู้สึกว่าตัวเองอาจเป็นสาเหตุหนึ่ง บรรยากาศที่บ้านทำให้คุณเครียดและไม่สามารถมีสมาธิในการเรียนได้",
+                choices: [
+                    {
+                        text: "โทษตัวเองและคิดว่าเป็นเพราะตัวเอง",
+                        mentalEnergy: -20,
+                        copingSkill: -5,
+                        feedback: "ปัญหาครอบครัวมักไม่ใช่ความผิดของลูก การโทษตัวเองจะเพิ่มความเครียดโดยไม่จำเป็น จำไว้ว่าคุณไม่สามารถควบคุมความสัมพันธ์ของผู้อื่นได้"
+                    },
+                    {
+                        text: "หาพื้นที่ปลอดภัยในการเรียนและพักผ่อน",
+                        mentalEnergy: 10,
+                        copingSkill: 15,
+                        feedback: "การหาพื้นที่ส่วนตัวที่ปลอดภัยเป็นวิธีการรับมือที่ดี คุณสามารถควบคุมสภาพแวดล้อมของตัวเองได้ แม้จะไม่สามารถเปลี่ยนแปลงสถานการณ์ภายนอกได้"
+                    },
+                    {
+                        text: "พูดคุยกับครูหรือผู้ใหญ่ที่ไว้ใจได้",
+                        mentalEnergy: 15,
+                        copingSkill: 10,
+                        feedback: "การขอความช่วยเหลือจากผู้ใหญ่ที่เข้าใจเป็นสิ่งที่ฉลาดมาก ผู้ใหญ่สามารถให้คำแนะนำและการสนับสนุนที่คุณต้องการได้"
+                    }
+                ]
+            },
+            {
+                icon: "⏰",
+                title: "งานเยอะเกินไป",
+                description: "คุณมีงานการบ้าน โครงการกลุ่ม และกิจกรรมนักเรียนที่ต้องส่งในสัปดาห์เดียวกัน คุณรู้สึกว่าเวลาไม่พอและไม่รู้จะเริ่มต้นจากตรงไหน",
+                choices: [
+                    {
+                        text: "ทำทุกอย่างพร้อมกันและดึกทุกคืน",
+                        mentalEnergy: -15,
+                        copingSkill: -5,
+                        feedback: "การทำงานหลายอย่างพร้อมกันและไม่พักผ่อนจะทำให้ประสิทธิภาพลดลง การนอนไม่พอจะส่งผลต่อสุขภาพจิตและการเรียนรู้"
+                    },
+                    {
+                        text: "จัดลำดับความสำคัญและแบ่งเวลาทำงาน",
+                        mentalEnergy: 10,
+                        copingSkill: 20,
+                        feedback: "ยอดเยี่ยม! การจัดลำดับความสำคัญและการจัดการเวลาเป็นทักษะสำคัญมาก การแบ่งงานใหญ่เป็นงานเล็กๆ จะทำให้รู้สึกจัดการได้มากขึ้น"
+                    },
+                    {
+                        text: "ขอความช่วยเหลือจากเพื่อนในกลุ่ม",
+                        mentalEnergy: 5,
+                        copingSkill: 15,
+                        feedback: "การทำงานเป็นทีมและขอความช่วยเหลือเป็นทักษะที่สำคัญ การแบ่งปันภาระงานจะช่วยให้ทุกคนเรียนรู้และพัฒนาไปด้วยกัน"
+                    }
+                ]
+            },
+            {
+                icon: "💔",
+                title: "ความสัมพันธ์กับเพื่อน",
+                description: "เพื่อนสนิทของคุณเริ่มเล่นกับกลุ่มใหม่และดูเหมือนจะไม่สนใจคุณเหมือนเดิม คุณรู้สึกเหงาและกังวลว่าจะสูญเสียมิตรภาพนี้",
+                choices: [
+                    {
+                        text: "แสดงความโกรธและบังคับให้เพื่อนเลือก",
+                        mentalEnergy: -10,
+                        copingSkill: -10,
+                        feedback: "การบังคับให้คนอื่นเลือกมักจะได้ผลตรงข้าม มิตรภาพที่ดีควรมีอิสระและความเข้าใจซึ่งกันและกัน การแสดงความโกรธอาจทำลายความสัมพันธ์"
+                    },
+                    {
+                        text: "พูดคุยกับเพื่อนอย่างเปิดใจเรื่องความรู้สึก",
+                        mentalEnergy: 5,
+                        copingSkill: 15,
+                        feedback: "การสื่อสารอย่างเปิดใจเป็นพื้นฐานของความสัมพันธ์ที่ดี เพื่อนอาจไม่รู้ว่าคุณรู้สึกอย่างไร การพูดคุยจะช่วยให้เข้าใจกันมากขึ้น"
+                    },
+                    {
+                        text: "ยอมรับการเปลี่ยนแปลงและหาเพื่อนใหม่",
+                        mentalEnergy: 10,
+                        copingSkill: 10,
+                        feedback: "การยอมรับการเปลี่ยนแปลงแสดงถึงความเป็นผู้ใหญ่ คนเราเปลี่ยนแปลงและเติบโตไปเรื่อยๆ การเปิดใจรับเพื่อนใหม่จะเพิ่มประสบการณ์ชีวิต"
+                    }
+                ]
+            }
+        ];
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            loadScenario();
+        }
+
+        function loadScenario() {
+            const scenario = scenarios[gameState.currentScenario];
+            
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioNumber').textContent = gameState.currentScenario + 1;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+            
+            const choicesContainer = document.getElementById('choicesContainer');
+            choicesContainer.innerHTML = '';
+            
+            scenario.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border-2 border-transparent hover:border-purple-300 transition-all duration-200 card-hover';
+                button.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="text-2xl mr-3">${String.fromCharCode(65 + index)}</div>
+                        <div class="flex-1">
+                            <p class="text-gray-800">${choice.text}</p>
+                        </div>
+                    </div>
+                `;
+                button.onclick = () => selectChoice(index);
+                choicesContainer.appendChild(button);
+            });
+            
+            document.getElementById('feedbackSection').classList.add('hidden');
+        }
+
+        function selectChoice(choiceIndex) {
+            const scenario = scenarios[gameState.currentScenario];
+            const choice = scenario.choices[choiceIndex];
+            
+            // Update stats
+            gameState.mentalEnergy = Math.max(0, Math.min(100, gameState.mentalEnergy + choice.mentalEnergy));
+            gameState.copingSkill = Math.max(0, Math.min(100, gameState.copingSkill + choice.copingSkill));
+            
+            // Calculate score
+            const scoreGain = Math.max(0, choice.mentalEnergy + choice.copingSkill);
+            gameState.totalScore += scoreGain;
+            
+            // Update level
+            gameState.level = Math.floor(gameState.totalScore / 50) + 1;
+            
+            // Update UI
+            updateStats();
+            showFeedback(choice, choiceIndex);
+            
+            // Disable choice buttons
+            const buttons = document.querySelectorAll('#choicesContainer button');
+            buttons.forEach((button, index) => {
+                if (index === choiceIndex) {
+                    button.classList.add('bg-purple-100', 'border-purple-500');
+                    button.classList.remove('hover:bg-gray-100', 'hover:border-purple-300');
+                } else {
+                    button.classList.add('opacity-50');
+                }
+                button.disabled = true;
+            });
+        }
+
+        function showFeedback(choice, choiceIndex) {
+            document.getElementById('feedbackText').textContent = choice.feedback;
+            
+            const statsChange = document.getElementById('statsChange');
+            let changeText = '';
+            if (choice.mentalEnergy !== 0) {
+                changeText += `พลังใจ: ${choice.mentalEnergy > 0 ? '+' : ''}${choice.mentalEnergy} `;
+            }
+            if (choice.copingSkill !== 0) {
+                changeText += `ทักษะการรับมือ: ${choice.copingSkill > 0 ? '+' : ''}${choice.copingSkill}`;
+            }
+            statsChange.textContent = changeText;
+            
+            document.getElementById('feedbackSection').classList.remove('hidden');
+        }
+
+        function nextScenario() {
+            gameState.currentScenario++;
+            
+            if (gameState.currentScenario >= scenarios.length) {
+                showResults();
+            } else {
+                loadScenario();
+            }
+        }
+
+        function updateStats() {
+            // Update bars
+            document.getElementById('mentalEnergyBar').style.width = gameState.mentalEnergy + '%';
+            document.getElementById('copingSkillBar').style.width = gameState.copingSkill + '%';
+            
+            // Update text
+            document.getElementById('mentalEnergyText').textContent = `${gameState.mentalEnergy}/100`;
+            document.getElementById('copingSkillText').textContent = `${gameState.copingSkill}/100`;
+            document.getElementById('totalScore').textContent = gameState.totalScore;
+            document.getElementById('playerLevel').textContent = gameState.level;
+            
+            // Update character avatar based on mental energy
+            const avatar = document.getElementById('characterAvatar');
+            if (gameState.mentalEnergy >= 80) {
+                avatar.textContent = '😊';
+            } else if (gameState.mentalEnergy >= 60) {
+                avatar.textContent = '🙂';
+            } else if (gameState.mentalEnergy >= 40) {
+                avatar.textContent = '😐';
+            } else if (gameState.mentalEnergy >= 20) {
+                avatar.textContent = '😟';
+            } else {
+                avatar.textContent = '😰';
+            }
+        }
+
+        function showResults() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+            
+            let resultMessage = '';
+            let resultColor = '';
+            
+            if (gameState.mentalEnergy >= 80 && gameState.copingSkill >= 80) {
+                resultMessage = 'ยอดเยี่ยม! คุณมีทักษะการจัดการความเครียดที่ดีมาก';
+                resultColor = 'text-green-600';
+            } else if (gameState.mentalEnergy >= 60 && gameState.copingSkill >= 60) {
+                resultMessage = 'ดีมาก! คุณมีทักษะการรับมือที่ดี';
+                resultColor = 'text-blue-600';
+            } else if (gameState.mentalEnergy >= 40 && gameState.copingSkill >= 40) {
+                resultMessage = 'ดี! คุณกำลังเรียนรู้และพัฒนาทักษะ';
+                resultColor = 'text-yellow-600';
+            } else {
+                resultMessage = 'ไม่เป็นไร! การฝึกฝนจะช่วยให้คุณดีขึ้น';
+                resultColor = 'text-orange-600';
+            }
+            
+            document.getElementById('finalResults').innerHTML = `
+                <div class="mb-4">
+                    <p class="text-lg ${resultColor} font-bold">${resultMessage}</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-800">พลังใจ</h4>
+                        <p class="text-2xl font-bold text-green-600">${gameState.mentalEnergy}/100</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-800">ทักษะการรับมือ</h4>
+                        <p class="text-2xl font-bold text-blue-600">${gameState.copingSkill}/100</p>
+                    </div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-purple-800">คะแนนรวม</h4>
+                    <p class="text-3xl font-bold text-purple-600">${gameState.totalScore}</p>
+                    <p class="text-sm text-purple-600">ระดับ ${gameState.level}</p>
+                </div>
+            `;
+        }
+
+        function showTips() {
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('tipsScreen').classList.remove('hidden');
+        }
+
+        function backToResults() {
+            document.getElementById('tipsScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+        }
+
+        function restartGame() {
+            gameState = {
+                currentScenario: 0,
+                mentalEnergy: 80,
+                copingSkill: 60,
+                totalScore: 0,
+                level: 1
+            };
+            
+            updateStats();
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('tipsScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+
+        // Initialize the game
+        updateStats();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991a39d0a293e60e',t:'MTc2MDk4MTI0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
